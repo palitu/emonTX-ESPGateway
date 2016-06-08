@@ -15,3 +15,6 @@ Please feel free to improve the code/project - there is plenty of scope to do th
 
 #Future Plans
 Ultimately i want this to be an RFM -> MQTT bridge for emonTx.  I am currenlty looking for a decent library for the RFMs on the ESP8266's.  Let me know if you see one.
+
+#thanks
+This is based off of the following repository: https://github.com/tzapu/emonTXSerialGateway

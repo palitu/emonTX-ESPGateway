@@ -1,7 +1,5 @@
 #include <PubSubClient.h>
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
-
-//needed for library
 #include <EEPROM.h>
 #include <ESP8266WebServer.h>
 #include <DNSServer.h>
@@ -23,25 +21,22 @@ byte mqtt_server[] = { 10, 1, 1, 2 };
 WiFiClient emonTx_ESPGateway;
 PubSubClient client(emonTx_ESPGateway);
 
+//#include "config.h"
+//contains
+const char* emoncmsKey = "whateveryourkeyis...";
+
+//emoncoms
+const char* host = "emoncms.org";
+
+String inputString = "";         // a string to hold incoming data
+boolean stringComplete = false;  // whether the string is complete
+String topic = "";
+
 long lastMsg = 0;
 char msg[50];
 char cnodeId[10];
 char cdata[10];
 int value = 0;
-
-
-//#include "config.h"
-//contains
-const char* emoncmsKey = "whateveryourkeyis...";
-
-
-//emoncoms
-const char* host = "emoncms.org";
-
-
-String inputString = "";         // a string to hold incoming data
-boolean stringComplete = false;  // whether the string is complete
-String topic = "";
 
 String c1 = "0";
 String c2 = "0";
@@ -107,7 +102,6 @@ void setup() {
   // Initiate MQTT client
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-
   inputString.reserve(200);
 
 /*---------Start OTA Code---------------------*/
@@ -169,7 +163,6 @@ void loop() {
   
   // check serial line for new information
   serialEvent(); 
-
 
   //  Process the serial data, post to emonCMS and publish to MQTT
   if (stringComplete) {
